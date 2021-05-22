@@ -1,0 +1,19 @@
+Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  # ###### #
+  # Chants #
+  # ###### #
+  post '/chants' => 'chant#create'
+  get '/chants' => 'chant#index'
+  get '/chants/:id' => 'chant#show'
+
+  # ##### ###### #
+  # Chant Events #
+  # ##### ###### #
+  post '/events' => 'chant_event#create'
+  get  '/events/next' => 'chant_event#next'
+  delete '/events/:id' => 'chant_event#delete'
+end

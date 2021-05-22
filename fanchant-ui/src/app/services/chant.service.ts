@@ -1,0 +1,23 @@
+import { Injectable } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Observable, Subject} from "rxjs";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ChantService {
+
+  chantSubject: Subject<Chant[]>;
+
+  constructor(private http: HttpClient) {
+    this.chantSubject = new Subject<Chant[]>();
+  }
+
+  chantSubjectListener(): Observable<Chant[]> {
+    return this.chantSubject.asObservable();
+  }
+
+  loadChants(): Observable<Chant[]> {
+    return this.http.get<Chant[]>('/chants');
+  }
+}

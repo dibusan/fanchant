@@ -1,0 +1,17 @@
+
+<div fxLayout="column" fxLayoutAlign="space-around center" fxFill>
+  <h1>MC</h1>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a chant</mat-label>
+    <mat-select [(ngModel)]="selected" [value]="selected">
+      <mat-option *ngFor="let chant of chants$ | async" [value]="chant">
+        {{ chant.title }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div>
+    {{selected.content}}
+  </div>
+
+</div>

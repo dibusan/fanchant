@@ -1,0 +1,99 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/events":
+    post:
+      summary: Create an event
+      tags:
+      - Chant Events
+      parameters: []
+      responses:
+        '201':
+          description: chant event created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                scheduled_for:
+                  type: string
+                  example: '2018-03-20T09:12:28Z'
+                chant:
+                  type: integer
+              required:
+              - scheduled_for
+              - chant
+  "/events/next":
+    get:
+      summary: Get the next event that has been scheduled
+      tags:
+      - Chant Events
+      responses:
+        '200':
+          description: get the immediate next event
+  "/events/{id}":
+    delete:
+      summary: Delete an event using its unique id
+      tags:
+      - Chant Events
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: delete an event
+  "/chants":
+    post:
+      summary: Creates a chant
+      tags:
+      - Chants
+      parameters: []
+      responses:
+        '201':
+          description: chant created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+              required:
+              - title
+              - content
+    get:
+      summary: Get all chants
+      tags:
+      - Chants
+      responses:
+        '200':
+          description: display all chants
+  "/chants/{id}":
+    get:
+      summary: Get a chant using its unique id
+      tags:
+      - Chants
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: get a chant using its unique id
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
