@@ -10,6 +10,10 @@ import {MatSelectModule} from "@angular/material/select";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ChantApiInterceptor} from "./interceptors/chant-api.interceptor";
 import {FormsModule} from "@angular/forms";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -24,6 +28,10 @@ import {FormsModule} from "@angular/forms";
     MatSelectModule,
     HttpClientModule,
     FormsModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatButtonModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ChantApiInterceptor, multi: true, }

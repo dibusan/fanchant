@@ -1,17 +1,39 @@
 
 <div fxLayout="column" fxLayoutAlign="space-around center" fxFill>
   <h1>MC</h1>
+
+  <!--  Date  -->
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="datepicker" [(ngModel)]="scheduleDate">
+    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+    <mat-datepicker #datepicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Set countdown</mat-label>
+    <mat-select [(ngModel)]="countdown" [value]="5">
+      <mat-option *ngFor="let n of [1, 3, 5, 10]" [value]="n">
+        {{ pluralizeMinutes(n) }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <mat-form-field appearance="fill">
     <mat-label>Choose a chant</mat-label>
-    <mat-select [(ngModel)]="selected" [value]="selected">
+    <mat-select (selectionChange)="changeChantSelection($event)">
       <mat-option *ngFor="let chant of chants$ | async" [value]="chant">
         {{ chant.title }}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
-  <div>
+  <div fxFlex="40">
     {{selected.content}}
   </div>
+
+  <button mat-raised-button disableRipple color="primary">
+    Schedule
+  </button>
 
 </div>
