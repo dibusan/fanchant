@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-event-summary',
@@ -7,7 +7,8 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class EventSummaryComponent implements OnInit {
   @Input() chantEvent: ChantEvent | undefined;
-  timeLeft: number = 0;
+  leftTime: number = 0;
+  @Output() onDeleteEvent = new EventEmitter();
 
   constructor() { }
 
@@ -16,7 +17,7 @@ export class EventSummaryComponent implements OnInit {
       const scheduled_datetime = new Date(this.chantEvent.scheduled_for);
 
       // Difference in seconds
-      this.timeLeft = (scheduled_datetime.getTime() - new Date().getTime())/1000;
+      this.leftTime = (scheduled_datetime.getTime() - new Date().getTime())/1000;
     }
 
   }
@@ -27,5 +28,11 @@ export class EventSummaryComponent implements OnInit {
 
   chantSchedule(): string {
     return this.chantEvent?.scheduled_for || "";
+  }
+
+  deleteEvent(): void {
+    // Notify with empty emit
+    // No need to emit the value since its already available upstream
+    this.onDeleteEvent.emit();
   }
 }

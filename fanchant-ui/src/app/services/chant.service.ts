@@ -31,4 +31,7 @@ export class ChantService {
     return this.http.post<ChantEvent[]>('/events', scheduleInfo);
   }
 
+  deleteEvent(chantEvent: ChantEvent) {
+    return this.http.delete<ChantEvent[]>(`/events/${chantEvent.id}`);
+  }
 }

@@ -1,9 +1,9 @@
 class ChantEventController < ApplicationController
   def create
-    chant = Chant.find(params[:chant])
+    chant = Chant.find(params[:chantId])
     chant.chant_events.create!(create_event_params)
 
-    render json: ChantEvent.where('scheduled_for > ?', DateTime.now).order('scheduled_for ASC')
+    render json: ordered_future_events
   end
 
   def index
@@ -21,6 +21,7 @@ class ChantEventController < ApplicationController
 
   def delete
     ChantEvent.find(params[:id]).destroy!
+    render json: ordered_future_events
   end
 
   private
@@ -28,4 +29,9 @@ class ChantEventController < ApplicationController
   def create_event_params
     params.permit(:scheduled_for)
   end
+
+  def ordered_future_events
+    ChantEvent.where('scheduled_for > ?', DateTime.now).order('scheduled_for ASC')
+  end
 end
+

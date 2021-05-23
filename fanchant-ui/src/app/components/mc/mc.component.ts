@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ChantService} from "../../services/chant.service";
-import {Observable, of} from "rxjs";
-import {formatDate, Time} from "@angular/common";
+import {Observable} from "rxjs";
 import {MatSelectChange} from "@angular/material/select";
 
 @Component({
@@ -12,19 +11,12 @@ import {MatSelectChange} from "@angular/material/select";
 export class McComponent implements OnInit {
   chants$: Observable<Chant[]>;
   chantEvents$: Observable<ChantEvent[]>;
-  defaultChant: Chant = { id: 0, title: '', content: '' };
   selected: Chant = { id: 0, title: '', content: '' };
-  scheduleDate: Date;
-  scheduleTime: string;
   countdown = 5;
   savedChants: Chant[] = [];
   chantEvents: ChantEvent[] = [];
 
   constructor(private chantService: ChantService) {
-    // Now + 5 minutes
-    this.scheduleDate = new Date(new Date().getTime() + (5*60000));
-    this.scheduleTime = formatDate(this.scheduleDate, 'hh:mm:ss', 'en-US');
-
     this.chants$ = this.chantService.loadChants();
     this.chants$.subscribe((chants: Chant[]) => {
       this.savedChants = chants;
@@ -47,8 +39,8 @@ export class McComponent implements OnInit {
     return n + ' minutes';
   }
 
-  findChantContent(chant: Chant) {
-
+  scheduleDate(countdown: number): string {
+    return new Date(new Date().getTime() + (countdown * 60000)).toISOString();
   }
 
   changeChantSelection($event: MatSelectChange) {
@@ -57,8 +49,12 @@ export class McComponent implements OnInit {
 
   scheduleChant(): void {
     this.chantEvents$ = this.chantService.createEvent({
-      scheduled_for: this.scheduleDate.toISOString(),
+      scheduled_for: this.scheduleDate(this.countdown),
       chantId: this.selected.id || 0,
-    })
+    });
+  }
+
+  deleteEvent(chantEvent: ChantEvent): void {
+    this.chantEvents$ = this.chantService.deleteEvent(chantEvent);
   }
 }

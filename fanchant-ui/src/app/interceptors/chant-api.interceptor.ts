@@ -15,7 +15,6 @@ export class ChantApiInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log(request.url);
     const modified = request.clone({
       setHeaders: {
         'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ RSpec.describe 'chant_event', type: :request do
             type: :string,
             example: '2018-03-20T09:12:28Z'
           },
-          chant: { type: :integer }
+          chantId: { type: :integer }
         },
         required: %w[scheduled_for chant]
       }

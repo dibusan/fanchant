@@ -3,12 +3,12 @@
   <h1>MC</h1>
 
   <!--  Date  -->
-  <mat-form-field appearance="fill">
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="datepicker" [(ngModel)]="scheduleDate">
-    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-    <mat-datepicker #datepicker></mat-datepicker>
-  </mat-form-field>
+<!--  <mat-form-field appearance="fill">-->
+<!--    <mat-label>Choose a date</mat-label>-->
+<!--    <input matInput [matDatepicker]="datepicker" [(ngModel)]="currentDate">-->
+<!--    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>-->
+<!--    <mat-datepicker #datepicker></mat-datepicker>-->
+<!--  </mat-form-field>-->
 
   <mat-form-field appearance="fill">
     <mat-label>Set countdown</mat-label>
@@ -36,9 +36,8 @@
     Schedule
   </button>
 
-
     <div *ngFor="let e of chantEvents$ | async">
-      <app-event-summary [chantEvent]="e"></app-event-summary>
+      <app-event-summary (onDeleteEvent)="deleteEvent(e)" [chantEvent]="e"></app-event-summary>
     </div>
 
 </div>
