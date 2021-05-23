@@ -1,7 +1,18 @@
 class ChantEventController < ApplicationController
   def create
     chant = Chant.find(params[:chant])
-    render json: chant.chant_events.create!(create_event_params)
+    chant.chant_events.create!(create_event_params)
+
+    render json: ChantEvent.where('scheduled_for > ?', DateTime.now).order('scheduled_for ASC')
+  end
+
+  def index
+    events = if params[:future] == 'true'
+               ChantEvent.where('scheduled_for > ?', DateTime.now)
+             else
+               ChantEvent.all
+             end
+    render json: events.order('scheduled_for ASC')
   end
 
   def next

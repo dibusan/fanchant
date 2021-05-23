@@ -20,7 +20,7 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <mat-label>Choose a chant</mat-label>
+    <mat-label>{{ savedChants.length }} chants to choose from</mat-label>
     <mat-select (selectionChange)="changeChantSelection($event)">
       <mat-option *ngFor="let chant of chants$ | async" [value]="chant">
         {{ chant.title }}
@@ -32,8 +32,13 @@
     {{selected.content}}
   </div>
 
-  <button mat-raised-button disableRipple color="primary">
+  <button mat-raised-button disableRipple color="primary" (click)="scheduleChant()">
     Schedule
   </button>
+
+
+    <div *ngFor="let e of chantEvents$ | async">
+      <app-event-summary [chantEvent]="e"></app-event-summary>
+    </div>
 
 </div>

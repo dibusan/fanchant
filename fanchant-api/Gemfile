@@ -25,3 +25,5 @@ gem 'rswag-api'
 gem 'rswag-ui'
 
 gem "rack-cors", "~> 1.1"
+
+gem "active_model_serializers", "~> 0.10.12"

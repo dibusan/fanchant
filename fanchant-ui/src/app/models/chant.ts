@@ -3,3 +3,9 @@ interface Chant {
   title: string;
   content: string;
 }
+
+interface ChantEvent {
+  id?: number;
+  chant: Chant,
+  scheduled_for: string
+}

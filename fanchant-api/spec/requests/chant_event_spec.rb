@@ -22,6 +22,17 @@ RSpec.describe 'chant_event', type: :request do
         run_test!
       end
     end
+
+    get 'Get all events' do
+      tags 'Chant Events'
+      consumes 'application/json'
+
+      parameter name: :future, in: :query, type: :boolean
+
+      response '200', 'get scheduled all events' do
+        run_test!
+      end
+    end
   end
 
   path '/events/next' do

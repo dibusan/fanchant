@@ -27,6 +27,18 @@ paths:
               required:
               - scheduled_for
               - chant
+    get:
+      summary: Get all events
+      tags:
+      - Chant Events
+      parameters:
+      - name: future
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: get scheduled all events
   "/events/next":
     get:
       summary: Get the next event that has been scheduled

@@ -14,11 +14,16 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import { EventSummaryComponent } from './components/event-summary/event-summary.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatIconModule} from "@angular/material/icon";
+import {CountdownModule} from "ngx-countdown";
 
 @NgModule({
   declarations: [
     AppComponent,
-    McComponent
+    McComponent,
+    EventSummaryComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +37,9 @@ import {MatButtonModule} from "@angular/material/button";
     MatDatepickerModule,
     MatInputModule,
     MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    CountdownModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ChantApiInterceptor, multi: true, }
