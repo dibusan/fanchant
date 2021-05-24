@@ -11,6 +11,7 @@ export class FanComponent implements OnInit {
   nextChantEvent$: Observable<ChantEvent> | undefined;
   chantEvent: ChantEvent | undefined;
   timeLeft: number = 0;
+  timeRunning: number = 0;
 
   constructor(private chantService: ChantService) {
     this.nextChantEvent$ = this.chantService.loadNextChantEvent();
@@ -21,6 +22,9 @@ export class FanComponent implements OnInit {
       }
       this.chantEvent = e;
       this.timeLeft = (new Date(e.scheduled_for).getTime() - new Date().getTime())/1000;
+      if (this.timeLeft <= 0) {
+        this.timeRunning = e.chant.timelapse - (new Date().getTime() - new Date(e.scheduled_for).getTime())/1000;
+      }
     });
   }
 

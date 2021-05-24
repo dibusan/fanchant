@@ -2,6 +2,16 @@
   <h1>FanChant</h1>
   <div *ngIf="chantEvent" fxLayout="column" fxLayoutAlign="space-around center">
     {{ chantEvent.chant.title }}
-    <countdown [config]="{ leftTime: timeLeft }"></countdown>
+    <countdown
+      *ngIf="chantEvent.state === 'waiting'"
+      [config]="{ leftTime: timeLeft }"
+      class="waiting">
+    </countdown>
+
+    <countdown
+      *ngIf="chantEvent.state === 'in_progress'"
+      [config]="{ leftTime: chantEvent.chant.timelapse }"
+      class="playing">
+    </countdown>
   </div>
 </div>

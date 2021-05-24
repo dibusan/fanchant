@@ -12,7 +12,7 @@ export class McComponent implements OnInit {
   chants$: Observable<Chant[]>;
   chantEvents$: Observable<ChantEvent[]>;
   selected: Chant = { id: 0, title: '', content: '', timelapse: 0 };
-  countdown = 5;
+  countdown = 0.1;
   savedChants: Chant[] = [];
   chantEvents: ChantEvent[] = [];
 

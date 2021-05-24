@@ -12,8 +12,8 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Set countdown</mat-label>
-    <mat-select [(ngModel)]="countdown" [value]="5">
-      <mat-option *ngFor="let n of [1, 3, 5, 10]" [value]="n">
+    <mat-select [(ngModel)]="countdown">
+      <mat-option *ngFor="let n of [0.1, 1, 3, 5, 10]" [value]="n">
         {{ pluralizeMinutes(n) }}
       </mat-option>
     </mat-select>
