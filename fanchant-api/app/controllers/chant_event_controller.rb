@@ -16,7 +16,14 @@ class ChantEventController < ApplicationController
   end
 
   def next
-    render json: ChantEvent.where('scheduled_for >= ?', DateTime.now).order('scheduled_for ASC').limit(1).last
+    the_next = ChantEvent.where(state: [ChantEvent.states[:waiting], ChantEvent.states[:in_progress]])
+                         .order('scheduled_for ASC')
+                         .limit(1)
+                         .last
+
+    the_next&.check_and_update_state
+
+    render json: the_next
   end
 
   def delete
@@ -31,7 +38,11 @@ class ChantEventController < ApplicationController
   end
 
   def ordered_future_events
-    ChantEvent.where('scheduled_for > ?', DateTime.now).order('scheduled_for ASC')
+    ChantEvent.where(
+      'scheduled_for > ?', DateTime.now
+    ).or(
+      ChantEvent.where(state: ChantEvent.in_progress)
+    ).order('scheduled_for ASC')
   end
 end
 

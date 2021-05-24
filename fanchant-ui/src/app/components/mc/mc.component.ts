@@ -11,7 +11,7 @@ import {MatSelectChange} from "@angular/material/select";
 export class McComponent implements OnInit {
   chants$: Observable<Chant[]>;
   chantEvents$: Observable<ChantEvent[]>;
-  selected: Chant = { id: 0, title: '', content: '' };
+  selected: Chant = { id: 0, title: '', content: '', timelapse: 0 };
   countdown = 5;
   savedChants: Chant[] = [];
   chantEvents: ChantEvent[] = [];

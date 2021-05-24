@@ -14,12 +14,14 @@ export class FanComponent implements OnInit {
 
   constructor(private chantService: ChantService) {
     this.nextChantEvent$ = this.chantService.loadNextChantEvent();
-    this.nextChantEvent$.subscribe((e) => {
+    this.nextChantEvent$.subscribe((e: ChantEvent | null) => {
+      if (e === null) {
+        this.chantEvent = undefined;
+        return;
+      }
       this.chantEvent = e;
       this.timeLeft = (new Date(e.scheduled_for).getTime() - new Date().getTime())/1000;
     });
-    // Difference in seconds
-
   }
 
   ngOnInit(): void {

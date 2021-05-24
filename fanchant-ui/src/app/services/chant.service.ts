@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, Subject, timer} from "rxjs";
-import {retry, share, switchMap, takeUntil} from "rxjs/operators";
+import {delay, retry, retryWhen, share, switchMap, takeUntil} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class ChantService implements OnDestroy {
 
     this.nextChantEvent$ = timer(1, this.FIVE_SECONDS).pipe(
       switchMap(() => this.http.get<ChantEvent>('/events/next')),
-      retry(),
+      retryWhen(errors => errors.pipe(delay(1000))),
       share(),
       takeUntil(this.stopPolling)
     );

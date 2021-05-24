@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_21_225617) do
+ActiveRecord::Schema.define(version: 2021_05_24_053235) do
 
   create_table "chant_events", force: :cascade do |t|
     t.datetime "scheduled_for"
     t.integer "chant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "state", default: 0
     t.index ["chant_id"], name: "index_chant_events_on_chant_id"
   end
 
@@ -25,6 +26,7 @@ ActiveRecord::Schema.define(version: 2021_05_21_225617) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "timelapse"
   end
 
 end
