@@ -36,8 +36,8 @@
     Schedule
   </button>
 
-    <div *ngFor="let e of chantEvents$ | async">
-      <app-event-summary (onDeleteEvent)="deleteEvent(e)" [chantEvent]="e"></app-event-summary>
-    </div>
+  <div *ngFor="let e of chantEvents$ | async">
+    <app-event-summary (onDeleteEvent)="deleteEvent(e)" [chantEvent]="e"></app-event-summary>
+  </div>
 
 </div>

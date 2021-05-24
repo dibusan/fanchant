@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {interval, Observable, timer} from "rxjs";
+import {Component, OnInit} from '@angular/core';
+import {Observable} from "rxjs";
 import {ChantService} from "../../services/chant.service";
-import {retry, share, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-fan',
@@ -10,9 +9,17 @@ import {retry, share, switchMap} from "rxjs/operators";
 })
 export class FanComponent implements OnInit {
   nextChantEvent$: Observable<ChantEvent> | undefined;
+  chantEvent: ChantEvent | undefined;
+  timeLeft: number = 0;
 
   constructor(private chantService: ChantService) {
     this.nextChantEvent$ = this.chantService.loadNextChantEvent();
+    this.nextChantEvent$.subscribe((e) => {
+      this.chantEvent = e;
+      this.timeLeft = (new Date(e.scheduled_for).getTime() - new Date().getTime())/1000;
+    });
+    // Difference in seconds
+
   }
 
   ngOnInit(): void {
