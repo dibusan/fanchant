@@ -18,12 +18,14 @@ import { EventSummaryComponent } from './components/event-summary/event-summary.
 import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import {CountdownModule} from "ngx-countdown";
+import { FanComponent } from './components/fan/fan.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     McComponent,
-    EventSummaryComponent
+    EventSummaryComponent,
+    FanComponent
   ],
   imports: [
     BrowserModule,

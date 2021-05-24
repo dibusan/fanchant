@@ -1,0 +1,4 @@
+<div>FanChant</div>
+<div *ngIf="nextChantEvent$ | async">
+  {{ (nextChantEvent$ | async)?.chant?.title }}
+</div>
