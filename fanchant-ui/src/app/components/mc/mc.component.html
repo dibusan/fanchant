@@ -29,7 +29,9 @@
   </mat-form-field>
 
   <div fxFlex="40">
-    {{selected.content}}
+    <div *ngFor="let line of selected.content.split('\n')">
+      {{line}}
+    </div>
   </div>
 
   <button mat-raised-button disableRipple color="primary" (click)="scheduleChant()">

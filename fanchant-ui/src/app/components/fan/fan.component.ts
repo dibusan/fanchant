@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {ChantService} from "../../services/chant.service";
+import {CountdownEvent} from "ngx-countdown";
 
 @Component({
   selector: 'app-fan',
@@ -12,8 +13,10 @@ export class FanComponent implements OnInit {
   chantEvent: ChantEvent | undefined;
   timeLeft: number = 0;
   timeRunning: number = 0;
+  shouldRunChant: boolean;
 
   constructor(private chantService: ChantService) {
+    this.shouldRunChant = false;
     this.nextChantEvent$ = this.chantService.loadNextChantEvent();
     this.nextChantEvent$.subscribe((e: ChantEvent | null) => {
       if (e === null) {
@@ -29,5 +32,12 @@ export class FanComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  onCountdownDone($event: CountdownEvent): void {
+    if($event.action !== 'done') {
+      return;
+    }
+    this.shouldRunChant = true;
   }
 }

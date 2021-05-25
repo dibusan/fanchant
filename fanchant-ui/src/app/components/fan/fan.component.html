@@ -1,15 +1,23 @@
 <div fxLayout="column" fxLayoutAlign="space-around center" fxFill>
   <h1>FanChant</h1>
+  <div *ngIf="!chantEvent">Next chant coming up!</div>
   <div *ngIf="chantEvent" fxLayout="column" fxLayoutAlign="space-around center">
     {{ chantEvent.chant.title }}
     <countdown
-      *ngIf="chantEvent.state === 'waiting'"
+      *ngIf="!shouldRunChant"
       [config]="{ leftTime: timeLeft }"
+      (event)="onCountdownDone($event)"
       class="waiting">
     </countdown>
 
+    <div *ngIf="shouldRunChant">
+      <div *ngFor="let line of chantEvent.chant.content.split('\n')">
+        {{line}}
+      </div>
+    </div>
+
     <countdown
-      *ngIf="chantEvent.state === 'in_progress'"
+      *ngIf="shouldRunChant"
       [config]="{ leftTime: chantEvent.chant.timelapse }"
       class="playing">
     </countdown>
