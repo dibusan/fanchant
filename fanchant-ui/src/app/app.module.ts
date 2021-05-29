@@ -19,13 +19,15 @@ import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import {CountdownModule} from "ngx-countdown";
 import { FanComponent } from './components/fan/fan.component';
+import { KaraokeComponent } from './components/karaoke/karaoke.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     McComponent,
     EventSummaryComponent,
-    FanComponent
+    FanComponent,
+    KaraokeComponent
   ],
   imports: [
     BrowserModule,
