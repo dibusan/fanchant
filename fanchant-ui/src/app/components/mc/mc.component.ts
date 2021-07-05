@@ -11,17 +11,25 @@ import {MatSelectChange} from "@angular/material/select";
 export class McComponent implements OnInit {
   chants$: Observable<Chant[]>;
   chantEvents$: Observable<ChantEvent[]>;
-  selected: Chant = { id: 0, title: '', content: '', timelapse: 0 };
+  selectedChantId: number = 0;
   countdown = 0.1;
   savedChants: Chant[] = [];
   chantEvents: ChantEvent[] = [];
+  index = 1;
+  chants = [
+    'Inter, eres mi obsesion',
+    'Ahi viene la hinchada',
+    'Inter, mi buen amigo',
+    'Alentando al rosanegro',
+  ];
+  isChantPlaying: boolean = false;
 
   constructor(private chantService: ChantService) {
     this.chants$ = this.chantService.loadChants();
     this.chants$.subscribe((chants: Chant[]) => {
       this.savedChants = chants;
       if (chants.length > 0) {
-        this.selected = chants[0];
+        this.selectedChantId = chants[0].id || 0;
       }
     });
 
@@ -30,6 +38,14 @@ export class McComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  startPlaying(): void {
+    this.isChantPlaying = true;
+  }
+
+  stopPlaying(): void {
+    this.isChantPlaying = false;
   }
 
   pluralizeMinutes(n: number): string {
@@ -44,17 +60,25 @@ export class McComponent implements OnInit {
   }
 
   changeChantSelection($event: MatSelectChange) {
-    this.selected = $event.value;
+    this.selectedChantId = $event.value.id;
   }
 
   scheduleChant(): void {
     this.chantEvents$ = this.chantService.createEvent({
       scheduled_for: this.scheduleDate(this.countdown),
-      chantId: this.selected.id || 0,
+      chantId: this.selectedChantId || 0,
     });
   }
 
   deleteEvent(chantEvent: ChantEvent): void {
     this.chantEvents$ = this.chantService.deleteEvent(chantEvent);
+  }
+
+  changeSelectedChant(id: number = 0) {
+    this.selectedChantId = id;
+  }
+
+  findSelectedChant(): Chant | undefined {
+    return this.savedChants.find(c => c.id === this.selectedChantId);
   }
 }

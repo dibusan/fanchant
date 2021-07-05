@@ -1,0 +1,43 @@
+.chant-list-bg {
+  background-image: url("/assets/red-chant-list-frame-1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right;
+}
+
+.mc-container {
+  width: 100vw;
+  position:relative;
+}
+
+.songs-icon-overlay {
+  position:absolute;
+  top: -25px;
+  left: 25px;
+}
+
+.chant-list {
+  margin-top: 5vh;
+}
+
+li {
+  font-family: FanchantFont, serif;
+  font-size: x-large;
+  color: black;
+  padding: 25px 0 25px 0;
+  border-bottom: 1px solid white;
+}
+
+.chant-preview-text {
+  font-family: FanchantBold, Roboto, "Helvetica Neue", sans-serif;
+  font-size: large;
+}
+
+.selected {
+  color: yellow;
+}
+
+.chanting-now {
+  color: white;
+  font-size: medium;
+}

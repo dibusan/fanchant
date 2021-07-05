@@ -20,6 +20,12 @@ import {MatIconModule} from "@angular/material/icon";
 import {CountdownModule} from "ngx-countdown";
 import { FanComponent } from './components/fan/fan.component';
 import { KaraokeComponent } from './components/karaoke/karaoke.component';
+import {ChunkDirective, LyricEngineComponent} from './components/karaoke/lyric-engine/lyric-engine.component';
+import { ChunkComponent } from './components/karaoke/lyric-engine/chunk/chunk.component';
+import { LineComponent } from './components/karaoke/lyric-engine/line/line.component';
+import { KaraokeChunkDirective } from './directives/karaoke-chunk.directive';
+import {MatProgressBar, MatProgressBarModule} from "@angular/material/progress-bar";
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +33,13 @@ import { KaraokeComponent } from './components/karaoke/karaoke.component';
     McComponent,
     EventSummaryComponent,
     FanComponent,
-    KaraokeComponent
+    KaraokeComponent,
+    LyricEngineComponent,
+    ChunkComponent,
+    LineComponent,
+    ChunkDirective,
+    KaraokeChunkDirective,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +55,7 @@ import { KaraokeComponent } from './components/karaoke/karaoke.component';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
+    MatProgressBarModule,
     CountdownModule,
   ],
   providers: [

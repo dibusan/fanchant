@@ -1,0 +1,29 @@
+
+<button mat-raised-button (click)="toggleHighlight()">Toggle</button>
+
+<mat-progress-bar mode="determinate" value="40">AAAAAAAA</mat-progress-bar>
+
+
+<div>
+  <div
+    fxLayout="row" *ngFor="let line of lyrics | async; index as i">
+
+    <div
+      appKaraokeChunk
+      [highlight]="shouldHighlight"
+      [chunk]="chunk"
+      *ngFor="let chunk of line; index as j" fxLayout="row"
+    >
+      <!--      [@textHighlight]="textHighlightDef"-->
+      <!--      (@textHighlight.done)="onAnimationDone($event)"-->
+
+        <div class="letter"
+          *ngFor="let letter of chunk.content.split('')">
+          {{letter}}
+        </div>
+
+      &nbsp;
+    </div>
+  </div>
+
+</div>

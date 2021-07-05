@@ -1,4 +1,41 @@
-/* You can add global styles to this file, and also import other style files */
+@use '~@angular/material' as mat;
+@import '~@angular/material/theming';
+
+$fanchant-custom-typography: mat.define-typography-config(
+  $font-family: FanchantCondensed,
+);
+
+@include mat.core($fanchant-custom-typography);
+
+@font-face {
+  font-family: FanchantCondensed;
+  src: url("assets/Din-Font/D-DINCondensed.otf") format("truetype");
+}
+
+@font-face {
+  font-family: FanchantBold;
+  src: url("assets/Din-Font/D-DIN-Bold.otf") format("truetype");
+}
+
+@font-face {
+  font-family: FanchantBold;
+  src: url("assets/Din-Font/D-DIN-Bold.otf") format("truetype");
+}
+
+@font-face {
+  font-family: FanchantFont;
+  src: url("assets/Din-Font/D-DIN.otf") format("truetype");
+}
+
+// ------------------------------------------------------------
+// ------------------------------------------------------------
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: FanchantFont, Roboto, "Helvetica Neue", sans-serif;
+}
+
+.text-size-xl {
+  font-size: 4em;
+}
