@@ -1,5 +1,6 @@
 class ChantEvent < ApplicationRecord
   belongs_to :chant
+  validate :event_already_running, on: :create
 
   enum state: %i[waiting in_progress finished]
 
@@ -11,5 +12,10 @@ class ChantEvent < ApplicationRecord
 
     # is over when seconds is greater than chant length
     finished! if seconds_since_start > chant.timelapse
+  end
+
+  def event_already_running
+    in_progress_count = ChantEvent.where(state: ChantEvent.states[:in_progress]).count
+    errors.add(:base, 'a chant is already in progress') if in_progress_count.positive?
   end
 end

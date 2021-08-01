@@ -5,9 +5,13 @@
   background-position: right;
 }
 
-.mc-container {
+.mc-actions {
   width: 100vw;
   position:relative;
+}
+
+.mc-container {
+  height: 100vh;
 }
 
 .songs-icon-overlay {
@@ -40,4 +44,10 @@ li {
 .chanting-now {
   color: white;
   font-size: medium;
+}
+
+.reproduction-title {
+  color: white;
+  font-size: x-large;
+  padding: 10px;
 }

@@ -1,7 +1,35 @@
-.waiting {
-  background: brown;
+.fan-container {
+  height: 100vh;
 }
 
-.playing {
-  background: darkmagenta;
+.landscape-logo {
+  margin-top: 7vh;
+  margin-right: 7vw;
+}
+
+.chant-player {
+  background-image: url("/assets/red-landscape-frame.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  //background-position: right;
+  width: 95vw;
+  height: 80vh;
+  position:relative;
+}
+
+.songs-icon-overlay {
+  position:absolute;
+  top: -40px;
+  left: 15px;
+}
+
+.qrcode,.sharetext {
+  border-radius: 5px;
+  margin: 10px;
+  font-family: FanchantFont, sans-serif;
+  font-size: large;
+}
+
+.chant-text {
+  font-size: x-large;
 }

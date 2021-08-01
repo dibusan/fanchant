@@ -3,11 +3,12 @@ interface Chant {
   title: string;
   content: string;
   timelapse: number;
+  isSelected?: boolean; // Client Only
 }
 
 interface ChantEvent {
   id?: number;
   chant: Chant;
-  scheduled_for: string;
   state: string;
+  scheduled_for?: string;
 }

@@ -1,45 +1,74 @@
-
-
-<div fxFlex fxLayout="column" fxLayoutAlign="start stretch" class="mc-container">
-
-  <div class="songs-icon-overlay">
-    <img src="assets/songs-icon.png" height="50">
+<div fxFlex fxLayout="column" fxLayoutAlign="space-between center" class="mc-container">
+<!-- Top Logo -->
+  <div fxFlex="10" fxLayoutAlign="center center">
+    <img  src="assets/logo-letters.png" height="20">
   </div>
 
-  <div fxFlex="50" fxLayout="row" fxLayoutAlign="start stretch">
-    <div fxFlex="85" fxFill class="chant-list-bg">
-      <ul class="chant-list">
-        <li
-          *ngFor="let chant of savedChants; index as i"
-          [class.selected]="chant.id === selectedChantId"
-          (click)="changeSelectedChant(chant.id)"
-        >
-          {{ chant.title | uppercase }}
-          <div *ngIf="chant.id === selectedChantId" class="chanting-now">
-            <strong>chanting now</strong>
+<!-- Body -->
+  <div fxFlex="90" fxLayout="column" fxLayoutAlign="start stretch" class="mc-actions">
+
+<!-- Icon Overlay -->
+    <div class="songs-icon-overlay">
+      <img src="assets/songs-icon.png" height="50">
+    </div>
+
+
+<!-- Chant Scroll list -->
+    <div fxFlex="50" fxLayout="row" fxLayoutAlign="start stretch">
+      <div fxFlex="85" fxFill class="chant-list-bg">
+        <ul class="chant-list">
+          <li *ngFor="let chant of chants$ | async;" (click)="selectChant(chant)">
+
+            <div fxLayout="row" fxLayoutGap="20px" [class.selected]="isSelected(chant?.id)">
+              <div>{{ chant.title | uppercase }}</div>
+
+              <img
+                *ngIf="inProgress(chant?.id)"
+                src="assets/songs-icon.png" height="20">
+            </div>
+
+          </li>
+        </ul>
+      </div>
+
+    </div>
+<!--    <button mat-raised-button (click)="poll()">Refresh</button>-->
+    <div fxFlex="25" fxLayoutAlign="center center">
+
+
+<!--  When In Progress    -->
+
+      <img
+        (click)="stopChant()"
+        *ngIf="event?.state === 'in_progress'"
+        src="assets/stop-button.png"
+        height="50">
+
+      <img
+        (click)="startChant()"
+        *ngIf="event?.state !== 'in_progress'"
+        src="assets/start-button.png"
+        height="50">
+
+    </div>
+
+    <div fxFlex="25" fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex="80" class="chant-preview-text">
+        <div *ngIf="event?.state === 'in_progress'">
+          <div class="reproduction-title">
+            Playing {{event?.chant?.title}}
           </div>
-        </li>
-      </ul>
+          {{event?.chant?.content}}
+        </div>
+
+        <div *ngIf="event?.state !== 'in_progress'">
+<!--          <div>-->
+<!--            <em>Playing {{selectedChant?.title}}</em>-->
+<!--          </div>-->
+<!--          {{selectedChant?.content}}-->
+        </div>
+      </div>
     </div>
 
-  </div>
-  <div fxFlex="25" fxLayoutAlign="center center">
-    <img
-      (click)="stopPlaying()"
-      *ngIf="isChantPlaying"
-      src="assets/stop-button.png"
-      height="50">
-
-    <img
-      (click)="startPlaying()"
-      *ngIf="!isChantPlaying"
-      src="assets/start-button.png"
-      height="50">
-  </div>
-
-  <div fxFlex="25" fxLayout="row" fxLayoutAlign="center center">
-    <div fxFlex="80" class="chant-preview-text">
-      {{findSelectedChant()?.content}}
-    </div>
   </div>
 </div>

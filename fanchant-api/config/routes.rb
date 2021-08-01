@@ -14,7 +14,10 @@ Rails.application.routes.draw do
   # Chant Events #
   # ##### ###### #
   post '/events' => 'chant_event#create'
-  get '/events' => 'chant_event#index'
+  get '/events/stop' => 'chant_event#end_event'
   get '/events/next' => 'chant_event#next'
+
+  get '/events' => 'chant_event#index'
+  get '/events/next_dummy' => 'chant_event#next_dummy'
   delete '/events/:id' => 'chant_event#delete'
 end

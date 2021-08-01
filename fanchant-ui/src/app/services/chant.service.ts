@@ -1,54 +1,65 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable, Subject, timer} from "rxjs";
-import {delay, retry, retryWhen, share, switchMap, takeUntil} from "rxjs/operators";
+import {Observable, of, Subject, timer} from "rxjs";
+import {distinctUntilChanged, finalize, retryWhen, share, switchMap, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChantService implements OnDestroy {
-  FIVE_SECONDS = 5000;
+export class ChantService implements OnDestroy, OnInit {
+  private chants$: Observable<Chant[]> | undefined;
+  private chants: Chant[] | undefined;
 
-  private nextChantEvent$: Observable<ChantEvent>;
-  private stopPolling = new Subject();
+  private event$: Observable<ChantEvent> | undefined;
 
-  chantSubject: Subject<Chant[]>;
+  ngOnInit(): void {
+    this.getChants();
+
+  }
+  ngOnDestroy(): void {
+  }
 
   constructor(private http: HttpClient) {
-    this.chantSubject = new Subject<Chant[]>();
+  }
 
-    this.nextChantEvent$ = timer(1, this.FIVE_SECONDS).pipe(
+  getChants(): Observable<Chant[]> {
+    let observable: Observable<any>;
+    if (this.chants) {
+      observable = of(this.chants);
+    }  else if (this.chants$) {
+      observable = this.chants$;
+    } else {
+      this.chants$ = this.http.get<Chant[]>(`/chants`)
+        .pipe(
+          tap((res: Chant[]) => this.chants = res),
+          share(),
+          finalize(() => this.chants$ = undefined)
+        );
+      observable = this.chants$;
+    }
+    return observable;
+  }
+
+  getEvent(): Observable<ChantEvent> {
+    if(this.event$) {
+      return this.event$;
+    }
+    this.event$ = timer(1, 10000).pipe(
       switchMap(() => this.http.get<ChantEvent>('/events/next')),
-      retryWhen(errors => errors.pipe(delay(1000))),
       share(),
-      takeUntil(this.stopPolling)
     );
+    return this.event$;
   }
 
-  ngOnDestroy() {
-    this.stopPolling.next();
+
+  stopChant(): Observable<ChantEvent> {
+    return this.http.get<ChantEvent>('/events/stop');
   }
 
-  loadNextChantEvent(): Observable<ChantEvent> {
-    return this.nextChantEvent$;
+  startChant(selectedChant: Chant | undefined): Observable<ChantEvent> | undefined {
+    if (selectedChant && selectedChant.id) {
+      return this.http.post<ChantEvent>('/events', {chantId: selectedChant.id})
+    }
+    return undefined;
   }
-
-  loadChants(): Observable<Chant[]> {
-    return this.http.get<Chant[]>('/chants');
-  }
-
-  loadEvents(): Observable<ChantEvent[]> {
-    return this.http.get<ChantEvent[]>('/events', {
-      params: { future: true }
-    });
-  }
-
-  createEvent(scheduleInfo: { scheduled_for: string; chantId: number; }): Observable<ChantEvent[]> {
-    return this.http.post<ChantEvent[]>('/events', scheduleInfo);
-  }
-
-  deleteEvent(chantEvent: ChantEvent) {
-    return this.http.delete<ChantEvent[]>(`/events/${chantEvent.id}`);
-  }
-
 }

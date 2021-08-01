@@ -14,10 +14,10 @@ export class EventSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.chantEvent) {
-      const scheduled_datetime = new Date(this.chantEvent.scheduled_for);
-
-      // Difference in seconds
-      this.leftTime = (scheduled_datetime.getTime() - new Date().getTime())/1000;
+      // const scheduled_datetime = new Date(this.chantEvent.scheduled_for);
+      //
+      // // Difference in seconds
+      // this.leftTime = (scheduled_datetime.getTime() - new Date().getTime())/1000;
     }
 
   }
