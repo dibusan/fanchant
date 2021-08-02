@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  # Users & Orgs Service
+  api:
+    restart: always
+    build:
+      context: ./fanchant-api
+      dockerfile: Dockerfile
+    ports:
+      - "8888:3000"
+    command: ["bin/rails", "server", "-b", "0.0.0.0", "-e", "production"]
