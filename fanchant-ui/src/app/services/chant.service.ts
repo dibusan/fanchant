@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, of, Subject, timer} from "rxjs";
-import {distinctUntilChanged, finalize, retryWhen, share, switchMap, tap} from "rxjs/operators";
+import {finalize, share, switchMap, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,10 @@ export class ChantService implements OnDestroy, OnInit {
   private chants: Chant[] | undefined;
 
   private event$: Observable<ChantEvent> | undefined;
+  private eventSubject: Subject<ChantEvent> = new Subject<ChantEvent>();
 
   ngOnInit(): void {
     this.getChants();
-
   }
   ngOnDestroy(): void {
   }
@@ -44,13 +44,27 @@ export class ChantService implements OnDestroy, OnInit {
     if(this.event$) {
       return this.event$;
     }
-    this.event$ = timer(1, 10000).pipe(
+    this.event$ = timer(1, 1000).pipe(
       switchMap(() => this.http.get<ChantEvent>('/events/next')),
       share(),
     );
     return this.event$;
   }
 
+  clearEvent(): void {
+    console.log('Clear event');
+    this.eventSubject.next();
+  }
+
+  updateEvent(event: ChantEvent): void {
+    this.eventSubject.next(event);
+    console.log('Update event');
+  }
+
+  getEventSubscription(): Observable<ChantEvent> {
+    console.log('Subscribe to event');
+    return this.eventSubject.asObservable();
+  }
 
   stopChant(): Observable<ChantEvent> {
     return this.http.get<ChantEvent>('/events/stop');

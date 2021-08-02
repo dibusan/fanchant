@@ -41,10 +41,16 @@ export class McComponent implements OnInit, OnDestroy {
   }
 
   stopChant() {
-    this.chantService.stopChant().subscribe((r) => this.event = r);
+    this.chantService.stopChant().subscribe((r) => {
+      this.event = r;
+      this.chantService.clearEvent();
+    });
   }
 
   startChant() {
-    this.chantService.startChant(this.selectedChant)?.subscribe((r) => this.event = r);
+    this.chantService.startChant(this.selectedChant)?.subscribe((e: ChantEvent) => {
+      this.event = e;
+      this.chantService.updateEvent(e);
+    });
   }
 }
