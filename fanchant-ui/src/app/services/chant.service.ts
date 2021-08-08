@@ -44,7 +44,7 @@ export class ChantService implements OnDestroy, OnInit {
     if(this.event$) {
       return this.event$;
     }
-    this.event$ = timer(1, 1000).pipe(
+    this.event$ = timer(1, 300).pipe(
       switchMap(() => this.http.get<ChantEvent>('/events/next')),
       share(),
     );
