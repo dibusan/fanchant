@@ -1,9 +1,12 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="space-between left" class="fan-container" >
+<!-- Logo top right -->
   <div fxFlex="10" fxLayoutAlign="end center" fxFill>
     <img  src="assets/logo-letters.png" height="20" class="landscape-logo">
   </div>
 
+<!--  Red card body wrapper -->
   <div fxFlex="80">
+    <!--  Red card body -->
     <div
       fxLayout="column"
       fxLayoutAlign="center center"
@@ -14,15 +17,29 @@
         <img src="assets/songs-icon.png" height="50">
       </div>
 
+      <!-- Chant Area -->
       <div fxFlex="75" fxLayout="column" fxLayoutAlign="center center">
-<!--        Top Line -->
-        <div class="top-chant-text">{{topLine()}}</div>
-<!--        Center Line -->
-        <div class="center-chant-text">{{centerLine()}}</div>
-<!--        Top Line -->
-        <div class="bottom-chant-text">{{bottomLine()}}</div>
+
+        <!-- Warn message If no event -->
+        <div class="top-chant-text" *ngIf="!event">
+          Next chant coming up...
+        </div>
+
+        <!-- Chant Text -->
+        <div *ngIf="event" fxLayout="column" fxLayoutAlign="center center">
+          <!-- Chant Title -->
+          <h1 class="chant-title">Chant: <i>{{event.chant.title}}</i></h1>
+          <!-- Top Line -->
+          <div class="top-chant-text">{{topLine()}}</div>
+          <!-- Center Line -->
+          <div class="center-chant-text">{{centerLine()}}</div>
+          <!-- Top Line -->
+          <div class="bottom-chant-text">{{bottomLine()}}</div>
+        </div>
+
       </div>
 
+      <!-- QR code for sharing-->
       <div fxFlex="25"
            fxLayout="row"
            fxFill
