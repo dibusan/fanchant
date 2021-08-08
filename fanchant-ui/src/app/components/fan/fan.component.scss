@@ -30,6 +30,21 @@
   font-size: large;
 }
 
-.chant-text {
+.top-chant-text {
   font-size: x-large;
+  padding-bottom: 20px;
+  opacity: 0.8;
+  font-weight: bold;
+}
+
+.center-chant-text {
+  font-size: xx-large;
+  padding-bottom: 20px;
+  font-weight: bold;
+}
+
+.bottom-chant-text {
+  font-size: x-large;
+  opacity: 0.8;
+  font-weight: bold;
 }

@@ -15,9 +15,12 @@
       </div>
 
       <div fxFlex="75" fxLayout="column" fxLayoutAlign="center center">
-        <div *ngFor="let line of chantLines()" class="chant-text">
-          <strong>{{line}}</strong>
-        </div>
+<!--        Top Line -->
+        <div class="top-chant-text">{{topLine()}}</div>
+<!--        Center Line -->
+        <div class="center-chant-text">{{centerLine()}}</div>
+<!--        Top Line -->
+        <div class="bottom-chant-text">{{bottomLine()}}</div>
       </div>
 
       <div fxFlex="25"
@@ -25,7 +28,7 @@
            fxFill
            fxLayoutAlign="end end">
         <div class="sharetext">Share with Friends!</div>
-        <img class="qrcode" src="assets/qr_test.png" height="80">
+        <img class="qrcode" src="assets/qr_test.png" height="80" (click)="nextLine()">
 
       </div>
     </div>

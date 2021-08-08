@@ -7,30 +7,54 @@ import {Observable, Subscription} from "rxjs";
   templateUrl: './fan.component.html',
   styleUrls: ['./fan.component.scss']
 })
-export class FanComponent implements OnInit, OnDestroy {
+export class FanComponent implements OnInit {
   event: ChantEvent | undefined;
-  eventSubscription: Subscription;
+  chantLines: string[] = [];
+  centerLineIndex: number = 0;
+
   constructor(private chantService: ChantService) {
-    this.eventSubscription =
-      this.chantService.getEventSubscription().subscribe((ev) => {
-        this.event = ev;
-        console.log('Received event update');
-      });
   }
 
   ngOnInit(): void {
-    this.chantService.getEvent().subscribe(ev => this.event = ev);
+    this.chantService.getEvent().subscribe(ev => this.processNewEvent(ev));
   }
 
-  chantLines(): string[] {
-    if (!this.event?.chant?.content) {
-      return [];
+  private processNewEvent(ev: ChantEvent): void {
+    this.event = ev;
+    this.chantLines = this.event?.chant?.content.split('\n');
+  }
+  private hasLines(): boolean {
+    return this.chantLines && this.chantLines.length > 0;
+  }
+
+  topLine(): string {
+    if (
+      !this.hasLines() ||
+      this.centerLineIndex === 0
+    ) {
+      return '';
     }
-    return this.event.chant.content.split('\n');
+    return this.chantLines[this.centerLineIndex - 1];
   }
 
-  ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    this.eventSubscription.unsubscribe();
+  centerLine(): string {
+    if (!this.hasLines()) {
+      return '';
+    }
+    return this.chantLines[this.centerLineIndex];
+  }
+
+  bottomLine(): string {
+    if (
+      !this.hasLines() ||
+      this.centerLineIndex + 1 >= this.chantLines.length
+    ) {
+      return '';
+    }
+    return this.chantLines[this.centerLineIndex + 1];
+  }
+
+  nextLine() {
+    this.centerLineIndex += 1;
   }
 }
