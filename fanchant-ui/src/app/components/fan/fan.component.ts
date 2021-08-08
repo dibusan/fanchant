@@ -1,6 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ChantService} from "../../services/chant.service";
-import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-fan',
@@ -10,7 +9,6 @@ import {Observable, Subscription} from "rxjs";
 export class FanComponent implements OnInit {
   event: ChantEvent | undefined;
   chantLines: string[] = [];
-  centerLineIndex: number = 0;
 
   constructor(private chantService: ChantService) {
   }
@@ -29,32 +27,30 @@ export class FanComponent implements OnInit {
 
   topLine(): string {
     if (
+      !this.event ||
       !this.hasLines() ||
-      this.centerLineIndex === 0
+      this.event.next_line === 0
     ) {
       return '';
     }
-    return this.chantLines[this.centerLineIndex - 1];
+    return this.chantLines[this.event.next_line - 1];
   }
 
   centerLine(): string {
-    if (!this.hasLines()) {
+    if (!this.event || !this.hasLines()) {
       return '';
     }
-    return this.chantLines[this.centerLineIndex];
+    return this.chantLines[this.event.next_line];
   }
 
   bottomLine(): string {
     if (
+      !this.event ||
       !this.hasLines() ||
-      this.centerLineIndex + 1 >= this.chantLines.length
+      this.event.next_line + 1 >= this.chantLines.length
     ) {
       return '';
     }
-    return this.chantLines[this.centerLineIndex + 1];
-  }
-
-  nextLine() {
-    this.centerLineIndex += 1;
+    return this.chantLines[this.event.next_line + 1];
   }
 }
