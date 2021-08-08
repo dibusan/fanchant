@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, of, Subject, timer} from "rxjs";
-import {finalize, share, switchMap, tap} from "rxjs/operators";
+import {catchError, finalize, share, switchMap, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -75,5 +75,9 @@ export class ChantService implements OnDestroy, OnInit {
       return this.http.post<ChantEvent>('/events', {chantId: selectedChant.id})
     }
     return undefined;
+  }
+
+  nextLine(ev: ChantEvent): Observable<ChantEvent> {
+    return this.http.get<ChantEvent>(`/events/${ev.id}/nextLine`);
   }
 }

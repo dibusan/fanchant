@@ -18,4 +18,9 @@ class ChantEvent < ApplicationRecord
     in_progress_count = ChantEvent.where(state: ChantEvent.states[:in_progress]).count
     errors.add(:base, 'a chant is already in progress') if in_progress_count.positive?
   end
+
+  def increase_next_line!
+    self.next_line += 1
+    save!
+  end
 end

@@ -11,4 +11,5 @@ interface ChantEvent {
   chant: Chant;
   state: string;
   scheduled_for?: string;
+  next_line: number;
 }

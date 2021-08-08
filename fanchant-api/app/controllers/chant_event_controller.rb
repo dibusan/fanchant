@@ -7,11 +7,11 @@ class ChantEventController < ApplicationController
     render json: event
   end
 
-  # def start_event
-  #   event = ChantEvent.find(params[:id])
-  #   event.in_progress!
-  #   render json: event
-  # end
+  def next_line
+    event = ChantEvent.find(params[:id])
+    event.increase_next_line!
+    render json: event
+  end
 
   def end_event
     event = ChantEvent.where(state: ChantEvent.states[:in_progress]).last
@@ -20,21 +20,10 @@ class ChantEventController < ApplicationController
   end
 
   def index
-    # events = if params[:future] == 'true'
-    #            ChantEvent.where('scheduled_for > ?', DateTime.now)
-    #          else
-    #            ChantEvent.all
-    #          end
     render json: ChantEvent.where(state: ChantEvent.states[:in_progress]).first
   end
 
   def next
-    # the_next = ChantEvent.where(state: [ChantEvent.states[:waiting], ChantEvent.states[:in_progress]])
-    #                      .order('scheduled_for ASC')
-    #                      .limit(1)
-    #                      .last
-    #
-    # the_next&.check_and_update_state
     render json: ChantEvent.where(state: ChantEvent.states[:in_progress]).first
   end
 

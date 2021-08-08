@@ -34,7 +34,7 @@ li {
 
 .chant-preview-text {
   font-family: FanchantBold, Roboto, "Helvetica Neue", sans-serif;
-  font-size: large;
+  font-size: medium;
 }
 
 .selected {
@@ -50,4 +50,13 @@ li {
   color: white;
   font-size: x-large;
   padding: 10px;
+}
+
+.small-chant-preview {
+  color: white;
+  font-size: small;
+}
+
+.center-line {
+  color: yellow;
 }

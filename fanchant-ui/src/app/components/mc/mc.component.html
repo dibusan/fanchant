@@ -12,7 +12,6 @@
       <img src="assets/songs-icon.png" height="50">
     </div>
 
-
 <!-- Chant Scroll list -->
     <div fxFlex="50" fxLayout="row" fxLayoutAlign="start stretch">
       <div fxFlex="85" fxFill class="chant-list-bg">
@@ -32,41 +31,61 @@
       </div>
 
     </div>
-<!--    <button mat-raised-button (click)="poll()">Refresh</button>-->
-    <div fxFlex="25" fxLayoutAlign="center center">
 
-
-<!--  When In Progress    -->
-
+<!-- Buttons: Start and Stop -->
+    <div fxFlex="10" fxLayoutAlign="center center">
+      <!-- Stop -->
       <img
         (click)="stopChant()"
         *ngIf="event?.state === 'in_progress'"
         src="assets/stop-button.png"
         height="50">
-
+      <!-- Start -->
       <img
         (click)="startChant()"
         *ngIf="event?.state !== 'in_progress'"
         src="assets/start-button.png"
         height="50">
-
     </div>
 
-    <div fxFlex="25" fxLayout="row" fxLayoutAlign="center center">
-      <div fxFlex="80" class="chant-preview-text">
-        <div *ngIf="event?.state === 'in_progress'">
-          <div class="reproduction-title">
-            Playing {{event?.chant?.title}}
+    <button mat-raised-button fxFlex="5" (click)="nextLine()" >
+        Next
+    </button>
+
+    <div fxFlex="35" fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex="80">
+        <div *ngIf="!event"
+             fxLayout="column"
+             fxLayoutAlign="center center"
+             class="small-chant-preview" >
+          <h1>
+            Selected: <i>{{selectedChant?.title}}</i>
+          </h1>
+          <div *ngFor="let line of selectedChantLines()">
+            {{line}}
           </div>
-          {{event?.chant?.content}}
         </div>
 
-        <div *ngIf="event?.state !== 'in_progress'">
-<!--          <div>-->
-<!--            <em>Playing {{selectedChant?.title}}</em>-->
-<!--          </div>-->
-<!--          {{selectedChant?.content}}-->
+        <div *ngIf="event"
+             fxLayout="column"
+             fxLayoutAlign="center center"
+             class="small-chant-preview" >
+          <h1>
+            Playing: <i> {{event?.chant?.title}}</i>
+          </h1>
+          <div *ngFor="let line of chantLines; let i = index">
+            <div
+              [class.top-line]="event.next_line-1 === i"
+              [class.center-line]="event.next_line === i"
+              [class.bottom-line]="event.next_line+1 === i"
+            >
+              {{line}}
+            </div>
+
+          </div>
         </div>
+
+
       </div>
     </div>
 

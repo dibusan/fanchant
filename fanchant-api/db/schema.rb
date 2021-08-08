@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_24_053235) do
+ActiveRecord::Schema.define(version: 2021_08_08_193921) do
 
   create_table "chant_events", force: :cascade do |t|
     t.datetime "scheduled_for"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_05_24_053235) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "state", default: 0
+    t.integer "next_line", default: 0
     t.index ["chant_id"], name: "index_chant_events_on_chant_id"
   end
 
