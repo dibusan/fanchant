@@ -1,0 +1,21 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+handlers:
+  - url: /(.*\.(js|css|svg|png)(|\.map))$
+    static_files: dist/fanchant-ui/\1
+    upload: dist/fanchant-ui/(.*)(|\.map)
+  - url: /.*
+    static_files: dist/fanchant-ui/index.html
+    upload: dist/fanchant-ui/.*
+
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - coverage
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
+  - ^LICENSE

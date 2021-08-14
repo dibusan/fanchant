@@ -24,12 +24,18 @@
   margin-top: 5vh;
 }
 
-li {
+.chant {
   font-family: FanchantFont, serif;
   font-size: x-large;
   color: black;
-  padding: 25px 0 25px 0;
-  border-bottom: 1px solid white;
+  //padding: 25px 50px 25px 50px;
+}
+
+.underline {
+  width: 40vw;
+  margin: 15px 15px 15px 15px;
+  border-bottom: 3px solid black;
+  opacity: 0.2;
 }
 
 .chant-preview-text {

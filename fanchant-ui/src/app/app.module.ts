@@ -26,6 +26,7 @@ import { LineComponent } from './components/karaoke/lyric-engine/line/line.compo
 import { KaraokeChunkDirective } from './directives/karaoke-chunk.directive';
 import {MatProgressBar, MatProgressBarModule} from "@angular/material/progress-bar";
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [
@@ -41,23 +42,24 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     KaraokeChunkDirective,
     WelcomeComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FlexModule,
-    MatSelectModule,
-    HttpClientModule,
-    FormsModule,
-    MatNativeDateModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatProgressBarModule,
-    CountdownModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FlexModule,
+        MatSelectModule,
+        HttpClientModule,
+        FormsModule,
+        MatNativeDateModule,
+        MatDatepickerModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        MatProgressBarModule,
+        CountdownModule,
+        ScrollingModule,
+    ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ChantApiInterceptor, multi: true, }
   ],

@@ -15,19 +15,31 @@
 <!-- Chant Scroll list -->
     <div fxFlex="50" fxLayout="row" fxLayoutAlign="start stretch">
       <div fxFlex="85" fxFill class="chant-list-bg">
-        <ul class="chant-list">
-          <li *ngFor="let chant of chants$ | async;" (click)="selectChant(chant)">
 
-            <div fxLayout="row" fxLayoutGap="20px" [class.selected]="isSelected(chant?.id)">
-              <div>{{ chant.title | uppercase }}</div>
+          <cdk-virtual-scroll-viewport itemSize="50" fxFill>
+            <div
+              *cdkVirtualFor="let chant of chants$ | async; let i = index"
+              (click)="selectChant(chant)"
+              class="chant">
+                <div fxLayout="row" fxLayoutAlign="space-around" *ngIf="i === 0">
+                  <div class="underline"></div>
+                </div>
 
-              <img
-                *ngIf="inProgress(chant?.id)"
-                src="assets/songs-icon.png" height="20">
+                <div fxLayout="row" fxLayoutGap="20px" [class.selected]="isSelected(chant?.id)" fxLayoutAlign="center center">
+                  <div>{{i+1}}. {{ chant.title | uppercase }}</div>
+
+                  <img
+                    *ngIf="inProgress(chant?.id)"
+                    src="assets/songs-icon.png" height="20">
+                </div>
+              <div fxLayout="row" fxLayoutAlign="space-around">
+                <div class="underline"></div>
+              </div>
             </div>
+          </cdk-virtual-scroll-viewport>
 
-          </li>
-        </ul>
+
+
       </div>
 
     </div>
@@ -48,10 +60,8 @@
         height="50">
     </div>
 
-    <button mat-raised-button fxFlex="5" (click)="nextLine()" >
-        Next
-    </button>
 
+    <!--  Chant Preview  -->
     <div fxFlex="35" fxLayout="row" fxLayoutAlign="center center">
       <div fxFlex="80">
         <div *ngIf="!event"
@@ -89,5 +99,13 @@
       </div>
     </div>
 
+    <!--  Next Button  -->
+    <button
+      mat-raised-button
+      fxFlex="5"
+      color="accent"
+      (click)="nextLine()" >
+      Next
+    </button>
   </div>
 </div>
