@@ -83,7 +83,7 @@
           <h1>
             Playing: <i> {{event?.chant?.title}}</i>
           </h1>
-          <div *ngFor="let line of chantLines; let i = index">
+          <div fxLayout="row" *ngFor="let line of chantLines; let i = index">
             <div
               [class.top-line]="event.next_line-1 === i"
               [class.center-line]="event.next_line === i"
@@ -91,6 +91,7 @@
             >
               {{line}}
             </div>
+            <img src="assets/songs-icon.png" height="10" *ngIf="event.next_line === i">
 
           </div>
         </div>
