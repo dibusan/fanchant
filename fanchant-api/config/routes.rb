@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # Chants #
   # ###### #
   post '/chants' => 'chant#create'
+  get '/chants2' => 'chant#index2_deprecated'
   get '/chants' => 'chant#index'
   get '/chants/:id' => 'chant#show'
 

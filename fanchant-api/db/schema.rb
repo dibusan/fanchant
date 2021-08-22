@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_08_193921) do
+ActiveRecord::Schema.define(version: 2021_08_22_012051) do
 
   create_table "chant_events", force: :cascade do |t|
     t.datetime "scheduled_for"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2021_08_08_193921) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "timelapse"
+    t.integer "version", default: 2
   end
 
 end

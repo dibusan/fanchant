@@ -14,13 +14,14 @@ export class FanComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chantService.getEvent().subscribe(ev => this.processNewEvent(ev));
+    this.chantService.getEvent().subscribe(ev => {
+      this.event = ChantService.processNewEvent(ev);
+      if (this.event) {
+        this.chantLines = ChantService.getLinesFromChant(this.event?.chant);
+      }
+    });
   }
 
-  private processNewEvent(ev: ChantEvent): void {
-    this.event = ev;
-    this.chantLines = this.event?.chant?.content.split('\n');
-  }
   private hasLines(): boolean {
     return this.chantLines && this.chantLines.length > 0;
   }

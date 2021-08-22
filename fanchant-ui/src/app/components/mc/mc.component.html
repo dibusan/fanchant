@@ -21,25 +21,22 @@
               *cdkVirtualFor="let chant of chants$ | async; let i = index"
               (click)="selectChant(chant)"
               class="chant">
-                <div fxLayout="row" fxLayoutAlign="space-around" *ngIf="i === 0">
-                  <div class="underline"></div>
-                </div>
+              <div fxLayout="row" fxLayoutAlign="space-around" *ngIf="i === 0">
+                <div class="underline"></div>
+              </div>
 
-                <div fxLayout="row" fxLayoutGap="20px" [class.selected]="isSelected(chant?.id)" fxLayoutAlign="center center">
-                  <div>{{i+1}}. {{ chant.title | uppercase }}</div>
+              <div fxLayout="row" fxLayoutGap="20px" [class.selected]="isSelected(chant?.id)" fxLayoutAlign="center center">
+                <div>{{i+1}}. {{ chant.title | uppercase }}</div>
 
-                  <img
-                    *ngIf="inProgress(chant?.id)"
-                    src="assets/songs-icon.png" height="20">
-                </div>
+                <img
+                  *ngIf="inProgress(chant?.id)"
+                  src="assets/songs-icon.png" height="20">
+              </div>
               <div fxLayout="row" fxLayoutAlign="space-around">
                 <div class="underline"></div>
               </div>
             </div>
           </cdk-virtual-scroll-viewport>
-
-
-
       </div>
 
     </div>

@@ -1,6 +1,10 @@
 class ChantController < ApplicationController
   def index
-    render json: Chant.all
+    render json: Chant.where(version: 2)
+  end
+
+  def index2_deprecated
+    render json: Chant.where(version: 1)
   end
 
   def show

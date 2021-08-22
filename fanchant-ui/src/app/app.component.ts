@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   }
 
   async rotate() {
+    return;
     try {
       await this.fullScreenCheck();
     } catch (err) {
