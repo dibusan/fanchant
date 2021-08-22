@@ -9,22 +9,22 @@ $fanchant-custom-typography: mat.define-typography-config(
 
 @font-face {
   font-family: FanchantCondensed;
-  src: url("assets/Din-Font/D-DINCondensed.otf") format("truetype");
+  src: url("/assets/Din-Font/D-DINCondensed.otf") format("truetype");
 }
 
 @font-face {
   font-family: FanchantBold;
-  src: url("assets/Din-Font/D-DIN-Bold.otf") format("truetype");
+  src: url("/assets/Din-Font/D-DIN-Bold.otf") format("truetype");
 }
 
 @font-face {
   font-family: FanchantBold;
-  src: url("assets/Din-Font/D-DIN-Bold.otf") format("truetype");
+  src: url("/assets/Din-Font/D-DIN-Bold.otf") format("truetype");
 }
 
 @font-face {
   font-family: FanchantFont;
-  src: url("assets/Din-Font/D-DIN.otf") format("truetype");
+  src: url("/assets/Din-Font/D-DIN.otf") format("truetype");
 }
 
 // ------------------------------------------------------------

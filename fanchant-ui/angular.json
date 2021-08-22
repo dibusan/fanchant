@@ -58,6 +58,14 @@
               ],
               "outputHashing": "all"
             },
+            "emulator": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.emulator.ts"
+                }
+              ]
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -77,6 +85,9 @@
             },
             "development": {
               "browserTarget": "fanchant-ui:build:development"
+            },
+            "emulator": {
+              "browserTarget": "fanchant-ui:build:emulator"
             }
           },
           "defaultConfiguration": "development"

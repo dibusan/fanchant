@@ -27,6 +27,7 @@ import { KaraokeChunkDirective } from './directives/karaoke-chunk.directive';
 import {MatProgressBar, MatProgressBarModule} from "@angular/material/progress-bar";
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import {ScrollToBottomDirective} from "./scroll-to-bottom.directive";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
     LineComponent,
     ChunkDirective,
     KaraokeChunkDirective,
-    WelcomeComponent
+    WelcomeComponent,
+    ScrollToBottomDirective
   ],
     imports: [
         BrowserModule,
