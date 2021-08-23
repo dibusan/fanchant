@@ -8,7 +8,7 @@
   "files": [
     "src/main.ts",
     "src/polyfills.ts",
-    "src/app/models/chant_DEPRECATED_DO_NOT_USE.ts"
+    "src/app/models/chant.ts"
   ],
   "include": [
     "src/**/*.d.ts"

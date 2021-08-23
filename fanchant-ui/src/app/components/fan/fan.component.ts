@@ -26,6 +26,49 @@ export class FanComponent implements OnInit {
     return this.chantLines && this.chantLines.length > 0;
   }
 
+  topChantLineWords(): ChantWord[] | undefined {
+    if (!this.event) {
+      return [];
+    }
+    let top = -1;
+    if (this.event.center_line) {
+      top = this.event.center_line - 1;
+    }
+    if (top < 0) {
+      return;
+    }
+
+    return this.event.chant.parsed_content[top].words;
+  }
+
+  centerChantLineWords(): ChantWord[] {
+    if (!this.event) {
+      return [];
+    }
+    let center = 0;
+    if (this.event.center_line) {
+      center = this.event.center_line;
+    }
+    return this.event.chant.parsed_content[center].words;
+    // return this.event?.chant.parsed_content[this.event?.next_line].words;
+  }
+
+  bottomChantLineWords(): ChantWord[] | undefined {
+    if (!this.event) {
+      return [];
+    }
+    let bottom = 1;
+    if (this.event.center_line) {
+      bottom = this.event.center_line + 1;
+    }
+
+    if (bottom > this.event.chant.parsed_content.length-1) {
+      return;
+    }
+
+    return this.event.chant.parsed_content[bottom].words;
+  }
+
   topLine(): string {
     if (
       !this.event ||
@@ -54,4 +97,5 @@ export class FanComponent implements OnInit {
     }
     return this.chantLines[this.event.next_line + 1];
   }
+
 }

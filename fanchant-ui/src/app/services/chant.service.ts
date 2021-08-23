@@ -7,17 +7,12 @@ import {finalize, map, share, switchMap, tap} from "rxjs/operators";
   providedIn: 'root'
 })
 export class ChantService {
-  // Old Deprecating Version
-  private chants_DEPRECATED$: Observable<Chant_DEPRECATED_DO_NOT_USE[]> | undefined;
-  private chants_DEPRECATED: Chant_DEPRECATED_DO_NOT_USE[] | undefined;
-
   // New Version
   private chants$: Observable<Chant[]> | undefined;
   private chants: Chant[] | undefined;
 
   private event$: Observable<ChantEvent> | undefined;
   private eventSubject: Subject<ChantEvent> = new Subject<ChantEvent>();
-
 
   constructor(private http: HttpClient) {
   }
@@ -44,29 +39,12 @@ export class ChantService {
     return observable;
   }
 
-  getChants_DEPRECATED(): Observable<Chant_DEPRECATED_DO_NOT_USE[]> {
-    let observable: Observable<any>;
-    if (this.chants_DEPRECATED) {
-      observable = of(this.chants_DEPRECATED);
-    }  else if (this.chants_DEPRECATED$) {
-      observable = this.chants_DEPRECATED$;
-    } else {
-      this.chants_DEPRECATED$ = this.http.get<Chant_DEPRECATED_DO_NOT_USE[]>(`/chants2`)
-        .pipe(
-          tap((res: Chant_DEPRECATED_DO_NOT_USE[]) => this.chants_DEPRECATED = res),
-          share(),
-          finalize(() => this.chants_DEPRECATED$ = undefined)
-        );
-      observable = this.chants_DEPRECATED$;
-    }
-    return observable;
-  }
-
   getEvent(): Observable<ChantEvent> {
     if(this.event$) {
       return this.event$;
     }
-    this.event$ = timer(1, 3000).pipe(
+
+    this.event$ = timer(1, 300).pipe(
       switchMap(() => this.http.get<ChantEvent>('/events/next')),
       share(),
     );
@@ -111,11 +89,38 @@ export class ChantService {
       ).join(' ')
     );
   }
+
   static processNewEvent(ev: ChantEvent): ChantEvent | undefined {
     if (!ev) {
       return undefined;
     }
-    ev.chant.parsed_content = ChantService.stringToChantLines(ev.chant.content);
+    if (!ev.chant.parsed_content) {
+      ev.chant.parsed_content = ChantService.stringToChantLines(ev.chant.content);
+    }
+
+    ev.chant.parsed_content.map(
+      (l, index) => {
+        l.words.map(
+          (w) => {
+            w.active = (Date.now() >= ev.scheduled_for + w.timestamp);
+          }
+        )
+        if(Date.now() >= ev.scheduled_for + l.time) {
+          ev.center_line = index;
+        }
+      }
+    )
+
+    // 1629699279
+    // 1629678994564
+    // 1629679392
+
+    // For: 1629679845180.
+    // Word:        24498.
+    //
+    // Now: 1629679876715
+    //      1629679869678
+
     return ev;
   }
 
@@ -131,21 +136,23 @@ export class ChantService {
   private static buildChantLine(rawLine: string): ChantLine {
     // Example str: [00:24.498] I <00:24.924> die
     // Matches       00:24.498
-    const matchLineTime = rawLine.match(/\[([\d+|:|.]+)]/);
-    let time = '';
+    const matchLineTime = rawLine.match(/\[(\d+):(\d+).(\d+)]/);
+    let time = 0;
     if (!matchLineTime) {
       console.error("No time at begining of line: " + rawLine);
     } else {
-      time = matchLineTime[1];
+      time += +matchLineTime[1] * 60 * 1000; // minutes
+      time += +matchLineTime[2] * 1000; // seconds
+      time += +matchLineTime[3]; // milliseconds
     }
 
     return {
       time: time,
-      words: this.buildChantWords(time, rawLine),
+      words: this.buildChantWords(rawLine),
     };
   }
 
-  private static buildChantWords(firstWordTime: string, rawLine: string): ChantWord[] {
+  private static buildChantWords(rawLine: string): ChantWord[] {
     // Words
     // @ts-ignore
     const matchAllWords = rawLine.matchAll(/](.*?)<|>(.*?)<|>(.*?)$/g);

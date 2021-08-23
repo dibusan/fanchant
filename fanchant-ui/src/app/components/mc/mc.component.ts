@@ -12,8 +12,6 @@ export class McComponent implements OnInit, OnDestroy {
   chants$: Observable<Chant[]> = of([]);
   chants: Chant[] = [];
 
-  chants_NEW$: Observable<Chant[]> = of([]);
-
   selectedChant: Chant | undefined;
 
   event: ChantEvent | undefined;
@@ -24,8 +22,6 @@ export class McComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.chants_NEW$ = this.chantService.getChants();
-    this.chants_NEW$.subscribe((chs) => console.log(chs));
     // this.chants$ = this.chantService.getChants_DEPRECATED();
     this.chants$ = this.chantService.getChants();
     this.chants$.subscribe((chs) => this.chants = chs);

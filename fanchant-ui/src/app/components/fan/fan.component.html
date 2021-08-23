@@ -31,14 +31,24 @@
           <!-- Chant Title -->
           <h1 class="chant-title">Chant: <i>{{event.chant.title}}</i></h1>
           <!-- Top Line -->
-          <div class="top-chant-text">{{topLine()}}</div>
+          <div fxLayout="row" fxLayoutGap="3px" class="top-chant-text">
+            <div *ngFor="let word of topChantLineWords()">
+              {{word.text}}
+            </div>
+          </div>
           <!-- Center Line -->
-          <div class="center-chant-text">
-            {{centerLine()}}
+          <div fxLayout="row" fxLayoutGap="3px" class="center-chant-text">
+            <div *ngFor="let word of centerChantLineWords()" [class.highlight]="word.active">
+              {{word.text}}
+            </div>
             <img src="assets/songs-icon.png" height="25">
           </div>
-          <!-- Top Line -->
-          <div class="bottom-chant-text">{{bottomLine()}}</div>
+          <!-- Bottom Line -->
+          <div fxLayout="row" fxLayoutGap="3px" class="bottom-chant-text">
+            <div *ngFor="let word of bottomChantLineWords()">
+              {{word.text}}
+            </div>
+          </div>
         </div>
 
       </div>

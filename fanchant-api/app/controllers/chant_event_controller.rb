@@ -1,7 +1,7 @@
 class ChantEventController < ApplicationController
   def create
     chant = Chant.find(params[:chantId])
-    event = chant.chant_events.create!
+    event = chant.chant_events.create!(scheduled_for: ((Time.now + 5.seconds).to_f * 1000).to_i)
     event.in_progress!
 
     render json: event

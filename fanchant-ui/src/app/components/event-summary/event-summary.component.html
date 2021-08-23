@@ -1,7 +1,7 @@
 <mat-card fxLayout="row" fxLayoutAlign="space-between center">
   <mat-card-header>
     <mat-card-title>{{chantTitle()}}</mat-card-title>
-    <mat-card-subtitle>{{chantSchedule() | date: 'MMMM d, h:mm:ss a'}}</mat-card-subtitle>
+<!--    <mat-card-subtitle>{{chantSchedule() | date: 'MMMM d, h:mm:ss a'}}</mat-card-subtitle>-->
   </mat-card-header>
   <mat-card-content>
     <countdown [config]="{leftTime: leftTime}"></countdown>

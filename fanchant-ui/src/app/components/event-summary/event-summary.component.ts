@@ -26,9 +26,9 @@ export class EventSummaryComponent implements OnInit {
     return this.chantEvent?.chant.title || "";
   }
 
-  chantSchedule(): string {
-    return this.chantEvent?.scheduled_for || "";
-  }
+  // chantSchedule(): string {
+  //   return this.chantEvent?.scheduled_for || "";
+  // }
 
   deleteEvent(): void {
     // Notify with empty emit

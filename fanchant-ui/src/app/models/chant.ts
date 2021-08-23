@@ -1,17 +1,11 @@
-interface Chant_DEPRECATED_DO_NOT_USE {
-  id?: number;
-  title: string;
-  content: string;
-  timelapse: number;
-  isSelected?: boolean; // Client Only
-}
 
 interface ChantEvent {
   id?: number;
   chant: Chant;
   state: string;
-  scheduled_for?: string;
+  scheduled_for: number;
   next_line: number;
+  center_line?: number;
 }
 
 interface Chant {
@@ -24,7 +18,7 @@ interface Chant {
 }
 
 interface ChantLine {
-  time: string;
+  time: number;
   words: ChantWord[];
 }
 
