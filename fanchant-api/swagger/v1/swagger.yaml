@@ -22,7 +22,7 @@ paths:
                 scheduled_for:
                   type: string
                   example: '2018-03-20T09:12:28Z'
-                chant:
+                chantId:
                   type: integer
               required:
               - scheduled_for
@@ -80,9 +80,12 @@ paths:
                   type: string
                 content:
                   type: string
+                length:
+                  type: integer
               required:
               - title
               - content
+              - length
     get:
       summary: Get all chants
       tags:
