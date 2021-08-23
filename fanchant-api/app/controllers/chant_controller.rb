@@ -18,6 +18,6 @@ class ChantController < ApplicationController
   private
 
   def create_chant_params
-    params.permit(:title, :content)
+    params.permit(:title, :content, :length)
   end
 end

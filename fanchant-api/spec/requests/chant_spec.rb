@@ -12,9 +12,10 @@ RSpec.describe 'chant', type: :request do
         type: :object,
         properties: {
           title: { type: :string },
-          content: { type: :string }
+          content: { type: :string },
+          length: { type: :integer }
         },
-        required: %w[title content]
+        required: %w[title content length]
       }
 
       response '201', 'chant created' do

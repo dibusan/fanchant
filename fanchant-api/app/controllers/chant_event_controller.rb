@@ -20,7 +20,7 @@ class ChantEventController < ApplicationController
   end
 
   def index
-    render json: ChantEvent.where(state: ChantEvent.states[:in_progress]).first
+    render json: ChantEvent.all.order(created_at: :desc).limit(10)
   end
 
   def next
