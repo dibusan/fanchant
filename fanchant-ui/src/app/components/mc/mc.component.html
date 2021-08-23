@@ -80,17 +80,14 @@
           <h1>
             Playing: <i> {{event?.chant?.title}}</i>
           </h1>
-          <div fxLayout="row" *ngFor="let line of chantLines; let i = index">
-            <div
-              [class.top-line]="event.next_line-1 === i"
-              [class.center-line]="event.next_line === i"
-              [class.bottom-line]="event.next_line+1 === i"
-            >
-              {{line}}
+          <div fxLayout="row" fxLayoutGap="3px" *ngFor="let line of event.chant.parsed_content; let i = index">
+            <div *ngFor="let word of line.words" [class.highlight]="word.active">
+              {{word.text}}
             </div>
-            <img src="assets/songs-icon.png" height="10" *ngIf="event.next_line === i">
+            <img src="assets/songs-icon.png" height="10" *ngIf="event.center_line === i">
 
           </div>
+
         </div>
       </div>
     </div>
