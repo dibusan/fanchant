@@ -98,4 +98,17 @@ export class FanComponent implements OnInit {
     return this.chantLines[this.event.next_line + 1];
   }
 
+  hasStarted(event: ChantEvent | undefined): boolean {
+    if (!event) {
+      return false;
+    }
+    return Date.now() >= event.scheduled_for;
+  }
+
+  secondsLeft(event: ChantEvent | undefined): string {
+    if (!event) {
+      return '';
+    }
+    return 'Chant in: '+Math.round((Date.now() - event.scheduled_for)/1000)*-1;
+  }
 }

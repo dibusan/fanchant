@@ -24,7 +24,9 @@ class ChantEventController < ApplicationController
   end
 
   def next
-    render json: ChantEvent.where(state: ChantEvent.states[:in_progress]).first
+    ev = ChantEvent.where(state: ChantEvent.states[:in_progress]).first
+    ev.finished! if ev && ((Time.now - 3.seconds).to_f * 1000).to_i > (ev.scheduled_for + ev.chant.length)
+    render json: ev
   end
 
   def next_dummy

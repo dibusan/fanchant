@@ -26,10 +26,15 @@
           Next chant coming up...
         </div>
 
+        <!-- Countdown -->
+        <div *ngIf="!hasStarted(event)">
+          {{secondsLeft(event)}}
+        </div>
+
         <!-- Chant Text -->
-        <div *ngIf="event" fxLayout="column" fxLayoutAlign="center center">
+        <div *ngIf="hasStarted(event)" fxLayout="column" fxLayoutAlign="center center">
           <!-- Chant Title -->
-          <h1 class="chant-title">Chant: <i>{{event.chant.title}}</i></h1>
+          <h1 class="chant-title">Chant: <i>{{event?.chant?.title}}</i></h1>
           <!-- Top Line -->
           <div fxLayout="row" fxLayoutGap="3px" class="top-chant-text">
             <div *ngFor="let word of topChantLineWords()">

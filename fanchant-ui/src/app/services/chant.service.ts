@@ -94,6 +94,7 @@ export class ChantService {
     if (!ev) {
       return undefined;
     }
+
     if (!ev.chant.parsed_content) {
       ev.chant.parsed_content = ChantService.stringToChantLines(ev.chant.content);
     }
@@ -110,17 +111,6 @@ export class ChantService {
         }
       }
     )
-
-    // 1629699279
-    // 1629678994564
-    // 1629679392
-
-    // For: 1629679845180.
-    // Word:        24498.
-    //
-    // Now: 1629679876715
-    //      1629679869678
-
     return ev;
   }
 
