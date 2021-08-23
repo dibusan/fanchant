@@ -36,6 +36,14 @@ export class McComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
+  secondsLeft(event: ChantEvent | undefined): number {
+    return ChantService.secondsLeftToStart(event);
+  }
+
+  hasStarted(event: ChantEvent | undefined): boolean {
+    return ChantService.eventHasStarted(event);
+  }
+
   inProgress(chantId: number | undefined): boolean {
     return chantId !== undefined && this.event?.chant.id === chantId;
   }

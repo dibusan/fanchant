@@ -27,7 +27,7 @@
         </div>
 
         <!-- Countdown -->
-        <div *ngIf="!hasStarted(event)">
+        <div *ngIf="event && !hasStarted(event)">
           {{secondsLeft(event)}}
         </div>
 

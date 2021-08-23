@@ -89,6 +89,19 @@ export class ChantService {
       ).join(' ')
     );
   }
+  static secondsLeftToStart(event: ChantEvent | undefined): number {
+    if (!event) {
+      return 0;
+    }
+    return Math.round((Date.now() - event.scheduled_for)/1000)*-1;
+  }
+
+  static eventHasStarted(event: ChantEvent | undefined): boolean {
+    if (!event) {
+      return false;
+    }
+    return Date.now() >= event.scheduled_for;
+  }
 
   static processNewEvent(ev: ChantEvent): ChantEvent | undefined {
     if (!ev) {

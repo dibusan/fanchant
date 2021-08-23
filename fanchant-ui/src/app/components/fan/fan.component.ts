@@ -99,16 +99,10 @@ export class FanComponent implements OnInit {
   }
 
   hasStarted(event: ChantEvent | undefined): boolean {
-    if (!event) {
-      return false;
-    }
-    return Date.now() >= event.scheduled_for;
+    return ChantService.eventHasStarted(event);
   }
 
   secondsLeft(event: ChantEvent | undefined): string {
-    if (!event) {
-      return '';
-    }
-    return 'Chant in: '+Math.round((Date.now() - event.scheduled_for)/1000)*-1;
+    return 'Chant in ' + ChantService.secondsLeftToStart(event);
   }
 }

@@ -78,7 +78,9 @@
              fxLayoutAlign="center center"
              class="small-chant-preview" >
           <h1>
-            Playing: <i> {{event?.chant?.title}}</i>
+            <span *ngIf="!hasStarted(event)">&nbsp;In {{secondsLeft(event)}}:</span>
+            <span *ngIf="hasStarted(event)">Playing: </span>
+            <i> {{event?.chant?.title}}</i>
           </h1>
           <div fxLayout="row" fxLayoutGap="3px" *ngFor="let line of event.chant.parsed_content; let i = index">
             <div *ngFor="let word of line.words" [class.highlight]="word.active">
