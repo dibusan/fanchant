@@ -68,7 +68,7 @@
           <h1>
             Selected: <i>{{selectedChant?.title}}</i>
           </h1>
-          <div *ngFor="let line of selectedChantLines()">
+          <div *ngFor="let line of selectedChantLinesAsString()">
             {{line}}
           </div>
         </div>
@@ -82,11 +82,11 @@
             <span *ngIf="hasStarted(event)">Playing: </span>
             <i> {{event?.chant?.title}}</i>
           </h1>
-          <div fxLayout="row" fxLayoutGap="3px" *ngFor="let line of event.chant.parsed_content; let i = index">
+          <div fxLayout="row" fxLayoutGap="3px" *ngFor="let line of runningChantLines(); let i = index">
             <div *ngFor="let word of line.words" [class.highlight]="word.active">
               {{word.text}}
             </div>
-            <img src="assets/songs-icon.png" height="10" *ngIf="event.center_line === i">
+<!--            <img src="assets/songs-icon.png" height="10" *ngIf="line.current">-->
 
           </div>
 

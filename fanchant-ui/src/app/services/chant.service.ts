@@ -89,6 +89,27 @@ export class ChantService {
       ).join(' ')
     );
   }
+
+  static getXLinesFromChantAsString(c: Chant, start: number, x: number): string[] {
+    if(!c) {
+      return [];
+    }
+    const arr = [];
+    for(let i = start; i < start+x; i++) {
+      arr.push(c.parsed_content[i].words.map(
+        (w) => w.text
+      ).join(' '))
+    }
+    return arr;
+  }
+
+  static getXLinesFromChant(c: Chant, start: number, x: number): ChantLine[] {
+    if(!c) {
+      return [];
+    }
+    return c.parsed_content?.slice(start, start+x);
+  }
+
   static secondsLeftToStart(event: ChantEvent | undefined): number {
     if (!event) {
       return 0;

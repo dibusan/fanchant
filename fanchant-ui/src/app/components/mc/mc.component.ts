@@ -18,6 +18,8 @@ export class McComponent implements OnInit, OnDestroy {
 
   chantLines: string[] = [];
   newChant: boolean = false;
+  centerLine: number = 4;
+
   constructor(private chantService: ChantService) {
   }
 
@@ -70,11 +72,61 @@ export class McComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectedChantLines(): string[] {
+  selectedChantLinesAsString(): string[] {
     if (!this.selectedChant) {
       return [];
     }
-    return ChantService.getLinesFromChant(this.selectedChant);
+    let currentLine = 0;
+    this.selectedChant.parsed_content.find((chl, index) => {
+      let w = chl.words.find((w) => !w.active)
+      if (!!w) {
+        currentLine = index;
+        return true;
+      }
+      return false;
+    })
+
+    let n = this.selectedChant.parsed_content.length;
+    if (currentLine+8 >= n) {
+      currentLine = n - 8;
+    }
+
+    return ChantService.getXLinesFromChantAsString(this.selectedChant, currentLine, 8);
+  }
+
+  runningChantLines(): ChantLine[] {
+
+    if (!this.event?.chant) {
+      return [];
+    }
+    let currentLine = 0;
+
+    this.event?.chant.parsed_content?.find((chl, index) => {
+      let w = chl.words.find((w) => !w.active)
+      if (!!w) {
+        currentLine = index;
+        return true;
+      }
+      return false;
+    });
+
+
+    let n = this.event?.chant.parsed_content?.length;
+    if (currentLine <= 4) {
+      this.centerLine = currentLine;
+      currentLine = 0;
+    } else {
+      currentLine -= 4;
+      this.centerLine = 4;
+    }
+
+    if(currentLine+8 >= n) {
+      this.centerLine = (n - currentLine)+4;
+      currentLine = n - 8;
+    }
+
+
+    return ChantService.getXLinesFromChant(this.event?.chant, currentLine, 8);
   }
 
   nextLine() {
