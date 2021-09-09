@@ -28,6 +28,7 @@ import {MatProgressBar, MatProgressBarModule} from "@angular/material/progress-b
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {ScrollToBottomDirective} from "./scroll-to-bottom.directive";
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
@@ -63,7 +64,9 @@ import {ScrollToBottomDirective} from "./scroll-to-bottom.directive";
         ScrollingModule,
     ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ChantApiInterceptor, multi: true, }
+    { provide: HTTP_INTERCEPTORS, useClass: ChantApiInterceptor, multi: true, },
+    { provide: CookieService }
+
   ],
   bootstrap: [AppComponent]
 })

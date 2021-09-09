@@ -22,4 +22,9 @@ Rails.application.routes.draw do
   get '/events/:id/nextLine' => 'chant_event#next_line'
   get '/events/next_dummy' => 'chant_event#next_dummy'
   delete '/events/:id' => 'chant_event#delete'
+
+  # ######### #
+  # Analytics #
+  # ######### #
+  post '/analytics' => 'analytics#create'
 end

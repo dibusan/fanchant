@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_022212) do
+ActiveRecord::Schema.define(version: 2021_09_09_061407) do
+
+  create_table "analytics", force: :cascade do |t|
+    t.string "device_id"
+    t.string "url"
+    t.string "event"
+    t.string "device_type"
+    t.string "extra"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "load_time", default: 0
+    t.integer "exit_time", default: 0
+    t.integer "time_spent", default: 0
+  end
 
   create_table "chant_events", force: :cascade do |t|
     t.integer "chant_id"

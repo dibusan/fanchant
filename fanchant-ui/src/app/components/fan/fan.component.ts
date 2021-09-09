@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {ChantService} from "../../services/chant.service";
+import {DeviceDetectorService} from "ngx-device-detector";
+import {AnalyticsService} from "../../services/analytics.service";
 
 @Component({
   selector: 'app-fan',
@@ -9,17 +11,39 @@ import {ChantService} from "../../services/chant.service";
 export class FanComponent implements OnInit {
   event: ChantEvent | undefined;
   chantLines: string[] = [];
+  deviceInfo = {};
+  loadTime: number;
 
-  constructor(private chantService: ChantService) {
+  constructor(private analyticsService: AnalyticsService, private chantService: ChantService) {
+    this.loadTime = Date.now();
   }
 
   ngOnInit(): void {
+    this.analyticsService.sendEvent('fan', 'load', this.loadTime, 0);
     this.chantService.getEvent().subscribe(ev => {
       this.event = ChantService.processNewEvent(ev);
       if (this.event) {
         this.chantLines = ChantService.getLinesFromChant(this.event?.chant);
       }
     });
+  }
+
+
+  @HostListener('window:onload', ['$event'])
+  onloadHandler(event: any) {
+    this.analyticsService.sendEvent('fan', 'load', 0, 0);
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnloadHandler(event: any) {
+    this.analyticsService.sendEvent('fan', 'exit', this.loadTime, Date.now());
+    return "exit?";
+  }
+
+  @HostListener('window:onunload', ['$event'])
+  onUnloadHandler(event: any) {
+    this.analyticsService.sendEvent('fan', 'exit', this.loadTime, Date.now());
+    return "exit?";
   }
 
   private hasLines(): boolean {
@@ -62,7 +86,7 @@ export class FanComponent implements OnInit {
       bottom = this.event.center_line + 1;
     }
 
-    if (bottom > this.event.chant.parsed_content.length-1) {
+    if (bottom > this.event.chant.parsed_content.length - 1) {
       return;
     }
 
